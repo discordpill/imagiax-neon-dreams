@@ -70,9 +70,9 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glassmorphism border-primary/30 max-w-lg">
+      <DialogContent className="bg-card backdrop-blur-md border-border max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-gradient">
+          <DialogTitle className="text-2xl font-display font-semibold text-foreground">
             Send Us a Message
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
@@ -80,7 +80,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-5 mt-4">
           {/* Full Name */}
           <div className="space-y-2">
             <Label htmlFor="fullName" className="text-foreground font-medium">
@@ -92,7 +92,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
               value={formData.fullName}
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
               placeholder="John Doe"
-              className="neon-border focus:neon-glow bg-input/50 backdrop-blur-sm transition-all duration-300"
+              className="bg-background"
               required
             />
           </div>
@@ -108,7 +108,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder="john@example.com"
-              className="neon-border focus:neon-glow bg-input/50 backdrop-blur-sm transition-all duration-300"
+              className="bg-background"
               required
             />
           </div>
@@ -124,7 +124,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               placeholder="+1 (555) 123-4567"
-              className="neon-border focus:neon-glow bg-input/50 backdrop-blur-sm transition-all duration-300"
+              className="bg-background"
             />
           </div>
 
@@ -138,7 +138,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder="Tell us about your project..."
-              className="neon-border focus:neon-glow bg-input/50 backdrop-blur-sm min-h-[120px] transition-all duration-300 resize-none"
+              className="bg-background min-h-[120px] resize-none"
               required
             />
           </div>
@@ -146,8 +146,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
           {/* Submit Button */}
           <Button
             type="submit"
-            variant="hero"
-            className="w-full text-base py-6"
+            className="w-full h-11"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
@@ -155,7 +154,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
             ) : (
               <>
                 Send Message
-                <Send className="ml-2" size={18} />
+                <Send className="ml-2 h-4 w-4" />
               </>
             )}
           </Button>

@@ -26,31 +26,29 @@ export const BackgroundEffect = () => {
       vy: number;
       radius: number;
       opacity: number;
-      hue: number;
     }> = [];
 
     const createParticle = () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      radius: Math.random() * 2 + 1,
-      opacity: Math.random() * 0.5 + 0.2,
-      hue: Math.random() * 60 + 180, // Cyan to blue range
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
+      radius: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.15 + 0.05,
     });
 
     // Initialize particles
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 25; i++) {
       particles.push(createParticle());
     }
 
     let animationId: number;
 
     const animate = () => {
-      ctx.fillStyle = "rgba(12, 16, 36, 0.1)";
+      ctx.fillStyle = "rgba(250, 250, 253, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle, index) => {
+      particles.forEach((particle) => {
         // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
@@ -61,41 +59,11 @@ export const BackgroundEffect = () => {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle with glow
-        const gradient = ctx.createRadialGradient(
-          particle.x,
-          particle.y,
-          0,
-          particle.x,
-          particle.y,
-          particle.radius * 3
-        );
-        gradient.addColorStop(0, `hsla(${particle.hue}, 100%, 60%, ${particle.opacity})`);
-        gradient.addColorStop(1, `hsla(${particle.hue}, 100%, 60%, 0)`);
-
-        ctx.fillStyle = gradient;
+        // Draw particle
+        ctx.fillStyle = `rgba(100, 130, 200, ${particle.opacity})`;
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius * 3, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fill();
-
-        // Draw connections
-        particles.forEach((otherParticle, otherIndex) => {
-          if (index === otherIndex) return;
-
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            const opacity = (1 - distance / 150) * 0.2;
-            ctx.strokeStyle = `hsla(${particle.hue}, 100%, 60%, ${opacity})`;
-            ctx.lineWidth = 0.5;
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.stroke();
-          }
-        });
       });
 
       animationId = requestAnimationFrame(animate);
