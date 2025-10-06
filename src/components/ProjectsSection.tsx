@@ -78,7 +78,7 @@ export const ProjectsSection = () => {
   }
 
   return (
-    <section className="py-24 px-4 relative">
+    <section id="projects" className="py-24 px-4 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-950/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">

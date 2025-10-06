@@ -5,6 +5,7 @@ import { ContactModal } from "@/components/ContactModal";
 import { BackgroundEffect } from "@/components/BackgroundEffect";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -36,6 +37,8 @@ const Index = () => {
         <ServicesSection />
 
         <ProjectsSection />
+
+        <Footer />
 
         <ContactModal
           open={isContactModalOpen}
