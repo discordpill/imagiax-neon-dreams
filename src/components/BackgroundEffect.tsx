@@ -45,7 +45,7 @@ export const BackgroundEffect = () => {
     let animationId: number;
 
     const animate = () => {
-      ctx.fillStyle = "rgba(250, 250, 253, 0.1)";
+      ctx.fillStyle = "rgba(7, 12, 24, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((particle) => {
@@ -59,11 +59,43 @@ export const BackgroundEffect = () => {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle
-        ctx.fillStyle = `rgba(100, 130, 200, ${particle.opacity})`;
+        // Draw particle with neon blue glow
+        const gradient = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, particle.radius * 4
+        );
+        gradient.addColorStop(0, `rgba(51, 153, 255, ${particle.opacity * 0.8})`);
+        gradient.addColorStop(0.5, `rgba(0, 191, 255, ${particle.opacity * 0.4})`);
+        gradient.addColorStop(1, `rgba(0, 127, 255, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius * 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw core particle
+        ctx.fillStyle = `rgba(102, 204, 255, ${particle.opacity})`;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fill();
+      });
+
+      // Draw connecting lines
+      particles.forEach((p1, i) => {
+        particles.slice(i + 1).forEach((p2) => {
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            ctx.strokeStyle = `rgba(51, 153, 255, ${(1 - distance / 150) * 0.15})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        });
       });
 
       animationId = requestAnimationFrame(animate);
