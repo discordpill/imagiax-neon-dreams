@@ -1,4 +1,4 @@
-import { Sparkles, Mail, Code2, Heart } from "lucide-react";
+import { Sparkles, Mail, Code as Code2, Heart } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles, Code2, Rocket } from "lucide-react";
+import { Menu, X, Sparkles, Code as Code2, Rocket } from "lucide-react";
 
 interface NavbarProps {
   onContactClick: () => void;
